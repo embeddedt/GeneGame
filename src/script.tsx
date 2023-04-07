@@ -50,7 +50,7 @@ function App() {
             if(!correctValue)
                 Swal.fire({text: `Hmm. That doesn't seem like a ${fuzzyToString(targetFuzzy)} child. Click on the child to try two different parents.`});
             else
-                Swal.fire({text: 'Awesome! You got it right!'});
+                Swal.fire({text: 'Awesome! You got it right! The dominant gene gets passed on when just one parent has that gene. The recessive gene gets passed on when both parents have that gene.'});
         }
     }, [ correctValue, childFuzzy ]);
     if(parents.length >= 2)

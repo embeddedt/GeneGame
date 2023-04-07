@@ -6,6 +6,7 @@ import GeneType, { availableGeneValues, Gene } from './GeneType';
 import { titleize, getRandomArrayMember, lowercaseFirstLetter } from './utils';
 import isEqual from 'lodash-es/isEqual';
 import FlippableGeneChart from './FlippableGeneChart';
+import Swal from 'sweetalert2';
 function genAvailableParents(): FuzzyProps[] {
     var arr = [];
     for(var i = 0; i < 4; i++) {
@@ -45,8 +46,11 @@ function App() {
     };
     const correctValue = childFuzzy != null ? fuzzyToString(childFuzzy) == fuzzyToString(targetFuzzy) : false;
     React.useEffect(() => {
-        if(childFuzzy != null && !correctValue) {
-            window.alert(`Hmm. That doesn't seem like a ${fuzzyToString(targetFuzzy)} child. Click on the child to try two different parents.`);
+        if(childFuzzy != null) {
+            if(!correctValue)
+                Swal.fire({text: `Hmm. That doesn't seem like a ${fuzzyToString(targetFuzzy)} child. Click on the child to try two different parents.`});
+            else
+                Swal.fire({text: 'Awesome! You got it right!'});
         }
     }, [ correctValue, childFuzzy ]);
     if(parents.length >= 2)
@@ -78,5 +82,16 @@ function App() {
         </>;
 }
 window.onload = function() {
+    Swal.fire({
+        title: 'Instructions',
+        html: `<p>
+            You are going to find the right genes to make the target child.
+            The (R) and (D) in the Body Pattern section tells you if the trait is from a dominant gene or recessive gene.
+            </p>
+            <p>
+            Pay attention to what genes get passed on to the child.
+            Keep trying until you can get it right on the first try.
+        </p>`
+    });
     ReactDOM.render(<App/>, document.getElementById("game-container"));
 };

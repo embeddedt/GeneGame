@@ -55,7 +55,6 @@ function App() {
     }, [ correctValue, childFuzzy ]);
     if(parents.length >= 2)
         return <>
-            <FlippableGeneChart currentType={currentType} setCurrentType={setCurrentType} targetFuzzy={targetFuzzy}/>
             <h2>Parents:</h2>
             <div className="fuzzy-list">
                 {parents.map(parent => <Fuzzy key={parent.id} {...parent}/>)}
